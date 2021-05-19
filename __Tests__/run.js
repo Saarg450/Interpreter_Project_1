@@ -15,7 +15,7 @@ const tests = [
     require('./__tests__for-loop-test.js'),
     require('./__tests__short-hand-tests.js'), 
     require('./__tests__class-test.js'), 
-    require('./__tests__module-tests.js'), 
+    require('./__tests__module-tests.js'),  
     require('./__tests__import-tests.js'),
 ];
 

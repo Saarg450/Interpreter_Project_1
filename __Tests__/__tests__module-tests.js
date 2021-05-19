@@ -14,6 +14,8 @@ module.exports = eva => {
         (def square (x)
           (* x x))
         (var MAX_VALUE 1000)
+
+        (exports math)
       )
     )
     ((prop math abs) (- 10))
@@ -32,6 +34,6 @@ module.exports = eva => {
     `
       (prop math MAX_VALUE)
     `,
-    1000);
+    1000); 
 
 };
