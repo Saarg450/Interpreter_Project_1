@@ -1,0 +1,43 @@
+
+
+
+(class stack null
+
+    (begin 
+        
+        (def constructor (this)   
+           (begin
+           (set (prop this top) 2) 
+           (set (prop this (list stt (0 "End"))) 0) 
+           )        
+        )
+        
+        (def push (this value)
+            (begin
+                (++ (prop this top))
+                (set ((prop this stt) -> (prop this top)) value)
+            )
+        )
+
+        (def pop (this)
+                (if (< (prop this top) 2)
+                    "Empty Stack"
+                    (begin
+                        (var val ((prop this stt) -> (prop this top)))
+                        (-- (prop this top))     
+                        val
+                    )
+                )
+        )
+
+        (def peek (this)
+            (if (< (prop this top) 2)
+                "Empty Stack"
+                ((prop this stt) -> (prop this top))
+            ) 
+        )   
+    )
+
+) 
+
+(exports stack_)

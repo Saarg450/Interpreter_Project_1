@@ -1,0 +1,39 @@
+
+
+
+(class btree null
+
+    (begin 
+        
+        (def constructor (this rvalue)   
+           (begin 
+           (set (prop this root) 0)
+           (set (prop this (list bt (rvalue))) 0) 
+           )        
+        )
+        
+        (def left (this pidx value)
+            (begin
+                (set 
+                ((prop this bt) -> (+ 1 (* 2 pidx))) 
+                value)
+            )
+        )
+
+        (def right (this pidx value)
+            (begin
+                (set 
+                ((prop this bt) -> (+ 2 (* 2 pidx))) 
+                value)
+            )
+        )
+
+        (def need (this nidx)
+                ((prop this bt) -> nidx)     
+        )  
+ 
+    )
+
+) 
+
+(exports BTree_)

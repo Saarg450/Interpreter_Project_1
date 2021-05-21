@@ -1,0 +1,45 @@
+
+
+
+(class queue null
+
+    (begin 
+        
+        (def constructor (this)   
+           (begin
+                (set (prop this front) 1)
+                (set (prop this rear) 1)
+                (set (prop this (list qu ("End"))) 0) 
+           )        
+        )
+        
+        (def push_back (this value)
+            (begin
+                (set ((prop this qu) -> (prop this rear)) value)
+                (++ (prop this rear))
+            )
+        )
+
+        (def pop (this)
+            (if (>= (prop this front) (prop this rear))
+                "Empty Queue"
+                (begin
+                    (var val ((prop this qu) -> (prop this front)))
+                    (++ (prop this front))     
+                    val
+                )
+            )
+        )
+        
+
+        (def peek (this)
+            (if (>= (prop this front) (prop this rear))
+                "Empty Queue"
+                ((prop this qu) -> (prop this front))
+            ) 
+        )   
+    )
+
+) 
+
+(exports queue_)

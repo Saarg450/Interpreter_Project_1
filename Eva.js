@@ -97,12 +97,85 @@ class Eva {
                 const [_tag, instance, propName] = ref;
                 const instanceEnv = this.eval(instance, env);
 
+                if(propName[0] === 'list') {
+
+                    const [_tag, name, elements] = propName;
+
+                                
+                for(let i = 0; i < elements.length; i++) {
+
+                    if(this.isVariableName(elements[i])) {
+                        elements[i] = this.eval(elements[i], (env || instanceEnv));
+                    }
+
+                }
+
+                    instanceEnv.define(name, elements);                   
+
+
+
+
+                    /*this.eval(propName, instanceEnv);*/
+
+
+
+
+
+                 /*   const elementsArray = this.eval(propName, instanceEnv);
+
+                    instanceEnv.define(propName[1], elementsArray); */
+                  
+
+
+
+
+
+                    //  return instanceEnv.define(propName[1], elementsArray);
+                     return;  
+                }
+
                 /* ->remember we are using define not assign because we only want to alter our own record, 
                      i.e. the instanceEnv record. */
                 return instanceEnv.define(
                     propName,
                     this.eval(value, env)
                 );
+            }
+
+            // For Arrays/lists
+            else if(ref[1] === '->') {
+
+                const ElementsArray = this.eval(ref[0], env);
+                //var elementsArray = env.lookup(ref[0]);
+
+                const idx = this.eval(ref[2], env);
+                //var idx = ref[2];
+
+                
+                
+               // ElementsArray[idx] = value;
+               if(this.isStr(value) || value === 'true' || value === 'false') {
+                    ElementsArray[idx] = value;
+               }
+
+               else {
+                    ElementsArray[idx] = this.eval(value, env);
+               } 
+                
+               
+
+
+
+
+
+               /* var newArray = elementsArray;
+
+                newArray[idx] = value;
+
+                env.define(ref[0], newArray); */
+
+               return;
+                
             }
 
             // simple assignment:
@@ -258,6 +331,185 @@ if(exp[0] === '/=') {
                 env, //Closure
             };
         }
+
+
+//-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Tree Traversal:
+
+        if(exp[1] === '-->' || exp[1] === '<--') {
+            var parent = this.eval(exp[0], env);
+
+            if(exp[1] === '-->') {
+                return (2*parent + 2);
+            }
+
+            else
+            return (2*parent + 1);
+        }
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Array/List decelaration:
+
+    
+    /*    if(exp[0] === 'list') {
+            const [_tag, name, elements] = exp;
+
+            var EleStr = `"(`;
+
+            for(let i = 0; i < elements.length; i++) {
+
+                var ele;
+
+                if(this.isStr(elements[i])) {
+                    ele = eval(elements[i], env);
+
+                    ele = "'".concat(ele, "'");
+                }
+
+                else {
+                    var ele = eval(elements[i],env);
+                }
+
+                if(i === 0) {
+                    EleStr = EleStr + ele;
+                }
+
+                else {
+                    EleStr = EleStr + " || " + ele;
+                }
+            }
+
+            EleStr = EleStr + `)"`;
+
+            return env.define(name, this.eval(EleStr, env)); 
+        }  */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        if(exp[0] === 'list') {
+            const [_tag, name, elements] = exp;
+            
+            for(let i = 0; i < elements.length; i++) {
+
+                if(this.isVariableName(elements[i])) {
+                    elements[i] = this.eval(elements[i], env);
+                }
+
+            }
+
+            return env.define(name, elements);
+        } 
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Accessing all elements of an array/list: (ALL list_name)
+
+        if(exp[0] === 'ALL') {
+            const name = exp[1];
+
+            const elementsArray = env.lookup(name);
+
+            var EleStr = `"(`;
+
+            for(let i = 0; i < elementsArray.length; i++) {
+
+                var ele;
+
+                if(this.isStr(elementsArray[i])) {
+                    ele = eval(elementsArray[i], env);
+
+                    ele = "'".concat(ele, "'");
+                }
+
+                else {
+                    ele = eval(elementsArray[i],env);
+                }
+
+                if(i === 0) {
+                    EleStr = EleStr + ele;
+                }
+
+                else {
+                    EleStr = EleStr + " || " + ele;
+                }
+            }
+
+            EleStr = EleStr + `)"`;
+
+            return this.eval(EleStr, env); 
+        }
+
+
+  /*      if(exp[0] === 'ALL') {
+            var name = exp[1];
+
+            var elementsArray = env.lookup(name);
+
+            var evalElements = [0]; 
+
+            for(let i = 0; i < elementsArray.length; i++) {
+
+                var check = elementsArray[i];
+
+                evalElements[i] = this.eval(check, env);
+
+
+                if(this.isStr(check)) {
+                    check = check.slice(1,-1);
+                    check = "'".concat(check, "'");
+                    evalElements[i] = check;
+                }
+            }          
+
+            var strelements = evalElements.toString();
+
+            return strelements;
+        }  */
+
+
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+// Accessing an element of an array/list: (arr -> 3) --- accesing element at index 3 of arr.
+
+       if(exp[1] === '->') {
+
+
+            const ListArr = this.eval(exp[0], env);
+
+            const id = this.eval(exp[2], env);
+
+            return this.eval(ListArr[id], env);
+
+
+
+
+
+           /* const subexp = exp[0];
+
+            if(Array.isArray(exp[0])) {
+               
+               var elementsArray = env.lookup(this.eval(exp[0], env));
+            }
+
+            else {
+                
+                var elementsArray = env.lookup(exp[0]);
+            }
+
+            var idx = this.eval(exp[2], env);
+
+            return this.eval(elementsArray[idx], env); */
+        }
+
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Class Decelarations:

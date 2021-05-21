@@ -9,16 +9,18 @@ module.exports = eva => {
             (begin
               (def constructor (this x y)
                 (begin
+                  
                   (set (prop this x) x)
                   (set (prop this y) y)))
               (def calc (this)
                 (+ (prop this x) (prop this y)))))
           (var p (new Point 10 20))
           ((prop p calc) p)
+
         `,
         30); 
     
-/* In the above example, the statement ((prop p calc) p), goes to is Array. 
+/* In the above example, the statement ((prop p calc) p), goes to isArray. 
 The exp[0] i.e. (prop p calc) is evaluated that returns an array {params, body, env} 
 and the next term, i.e. exp[1] i.e. p is the argument 'this' passed in it and this 
 whole gives the value 30 */ 

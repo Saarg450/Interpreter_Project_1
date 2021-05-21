@@ -22,6 +22,27 @@ module.exports = eva => {
   `,
   10);
 
+ /* test(eva,
+    `
+      (module mah
+        (begin
+          (class Point null
+            (begin
+              (def constructor (this x y)
+                (begin
+                  
+                  (set (prop this x) x)
+                  (set (prop this y) y)))
+              (def calc (this)
+                (+ (prop this x) (prop this y)))))
+  
+          (exports math)
+        )
+      )
+      ((prop mah abs) (- 10))
+    `,
+    10); */
+
   test(eva,
     `
       (var abs (prop math abs))
