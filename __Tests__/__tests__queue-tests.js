@@ -42,6 +42,22 @@ module.exports = eva => {
     20); 
 
 
+    test(eva,
+      `
+        (import Data_Structures)
+        
+        (var q (new (prop Data_Structures queue)))
+    
+        ((prop q push_back) q 10)
+  
+        ((prop q pop) q)
+  
+        ((prop q push_back) q 20)
+    
+        ((prop q peek) q)
+      `,
+      20); 
+
 
 
 };

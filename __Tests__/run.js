@@ -20,7 +20,9 @@ const tests = [
     require('./__tests__array-tests.js'),
     require('./__tests__stack-tests.js'), 
     require('./__tests__queue-tests.js'), 
-    require('./__tests__binary-tree-tests.js'),
+    require('./__tests__binary-tree-tests.js'), 
+    require('./__tests__bub-sort-tests.js'),
+    require('./__tests__quick-sort-tests.js'),
 ];
 
 const eva = new Eva ();

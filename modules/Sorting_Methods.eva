@@ -1,0 +1,111 @@
+(def bubsort (arr n)
+
+    (begin
+
+        (var i 0)
+        (var j 0)
+
+        (for (set i 0) (< i (- n 1)) (++ i)
+        
+            (for (set j 0) (< j (- (- n i) 1)) (++ j)
+            
+                (if     (> (arr -> j) (arr -> (+ j 1)))
+                
+                       (begin
+                       
+                            (var temp (arr -> j))
+                            (set (arr -> j) (arr -> (+ j 1)))
+                            (set (arr -> (+ j 1)) temp)
+                      
+                       )
+
+                       (begin
+                       
+                            (var randomjhg 0)
+                       
+                       )      
+
+                )
+            )
+        
+        )
+
+    )
+
+)
+
+
+
+(def swap (arr a b)
+    (begin
+   
+        (var temp (arr -> a))
+        (set (arr -> a) (arr -> b))
+        (set (arr -> b) temp)
+  
+   )
+)
+
+(def partition (arr low high)
+
+    (begin
+    
+        (var pivot (arr -> high))
+        (var i (- low 1))
+
+        (for (var j low) (<= j (- high 1)) (++ j)
+
+            (if (<= (arr -> j) pivot) 
+            
+                (begin
+
+                    (++ i)
+                    (swap arr i j)
+
+                )
+
+                (begin
+
+                    (var hhvkjjn 80)
+
+                )
+
+            )
+
+        )
+
+        (swap arr (+ i 1) high)
+        (++ i)
+    
+    )
+
+)
+
+(def Qsort (arr low high)
+
+    (begin
+    
+        (if (< low high) 
+        
+            (begin
+
+                (var pi (partition arr low high))
+                
+                (Qsort arr low (- pi 1))
+                (Qsort arr (+ pi 1) high)
+
+            )
+
+            (begin
+
+                (var hhvkgjn 80)
+
+            )
+        
+        )
+
+    )
+
+)
+
+(exports Sorting_Methods)

@@ -41,6 +41,28 @@ module.exports = eva => {
   40);  
 
 
+  test(eva,
+    `
+      (import Data_Structures)
+      
+      (var b (new (prop Data_Structures btree) 10))
+  
+      (var x 0)
+  
+      ((prop b left) b x 20)
+  
+      ((prop b right) b 0 30)
+  
+      ((prop b left) b (+ 1 x) 40)
+  
+      ((prop b right) b 1 50)
+  
+      ((prop b right) b 2 60)
+  
+      ((prop b need) b 3)
+    `,
+    40);  
+
 
     test(eva,
         `

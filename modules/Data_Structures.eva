@@ -1,0 +1,135 @@
+
+
+
+(class stack null
+
+    (begin 
+        
+        (def constructor (this)   
+           (begin
+           (set (prop this top) 2) 
+           (set (prop this (list stt (0 "End"))) 0) 
+           )        
+        )
+        
+        (def push (this value)
+            (begin
+                (++ (prop this top))
+                (set ((prop this stt) -> (prop this top)) value)
+            )
+        )
+
+        (def pop (this)
+                (if (< (prop this top) 2)
+                    "Empty Stack"
+                    (begin
+                        (var val ((prop this stt) -> (prop this top)))
+                        (-- (prop this top))     
+                        val
+                    )
+                )
+        )
+
+        (def peek (this)
+            (if (< (prop this top) 2)
+                "Empty Stack"
+                ((prop this stt) -> (prop this top))
+            ) 
+        )   
+    )
+
+) 
+
+
+
+
+
+
+
+(class queue null
+
+    (begin 
+        
+        (def constructor (this)   
+           (begin
+                (set (prop this front) 1)
+                (set (prop this rear) 1)
+                (set (prop this (list qu ("End"))) 0) 
+           )        
+        )
+        
+        (def push_back (this value)
+            (begin
+                (set ((prop this qu) -> (prop this rear)) value)
+                (++ (prop this rear))
+            )
+        )
+
+        (def pop (this)
+            (if (>= (prop this front) (prop this rear))
+                "Empty Queue"
+                (begin
+                    (var val ((prop this qu) -> (prop this front)))
+                    (++ (prop this front))     
+                    val
+                )
+            )
+        )
+        
+
+        (def peek (this)
+            (if (>= (prop this front) (prop this rear))
+                "Empty Queue"
+                ((prop this qu) -> (prop this front))
+            ) 
+        )   
+    )
+
+) 
+
+
+
+
+
+
+
+(class btree null
+
+    (begin 
+        
+        (def constructor (this rvalue)   
+           (begin 
+           (set (prop this root) 0)
+           (set (prop this (list bt (rvalue))) 0) 
+           )        
+        )
+        
+        (def left (this pidx value)
+            (begin
+                (set 
+                ((prop this bt) -> (+ 1 (* 2 pidx))) 
+                value)
+            )
+        )
+
+        (def right (this pidx value)
+            (begin
+                (set 
+                ((prop this bt) -> (+ 2 (* 2 pidx))) 
+                value)
+            )
+        )
+
+        (def need (this nidx)
+                ((prop this bt) -> nidx)     
+        )  
+ 
+    )
+
+) 
+
+
+
+
+
+(exports Data_Structures)

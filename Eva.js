@@ -482,7 +482,6 @@ if(exp[0] === '/=') {
 
        if(exp[1] === '->') {
 
-
             const ListArr = this.eval(exp[0], env);
 
             const id = this.eval(exp[2], env);
