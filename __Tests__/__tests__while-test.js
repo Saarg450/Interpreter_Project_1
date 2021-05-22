@@ -15,7 +15,7 @@ module.exports = eva => {
 
         ['while', ['<', 'counter', '10'], 
             [ 'begin',
-                ['set', 'result', ['+', 'result', 1]],
+                ['set', 'result', ['result', '+', 1]],
                 ['set', 'counter', ['+', 'counter', 1]]
             ],
         ],

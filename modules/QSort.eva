@@ -13,11 +13,11 @@
     (begin
     
         (var pivot (arr -> high))
-        (var i (- low 1))
+        (var i (low - 1))
 
-        (for (var j low) (<= j (- high 1)) (++ j)
+        (for (var j low) (j <= (high - 1)) (+= j 1)
 
-            (if (<= (arr -> j) pivot) 
+            (if ((arr -> j) <= pivot) 
             
                 (begin
 
@@ -36,7 +36,7 @@
 
         )
 
-        (swap arr (+ i 1) high)
+        (swap arr (i + 1) high)
         (++ i)
     
     )

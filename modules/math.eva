@@ -1,17 +1,17 @@
 
 
 (def sq (value)
-  (* value value) )
+  (value * value) )
 
 (def abs (value)
-  (if (< value 0)
+  (if (value < 0)
       (- value)
       value))
 
 
 
 (def square (x)
-  (* x x))
+  (x * x))
 
 (var MAX_VALUE 1000) 
 

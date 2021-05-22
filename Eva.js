@@ -111,26 +111,6 @@ class Eva {
                 }
 
                     instanceEnv.define(name, elements);                   
-
-
-
-
-                    /*this.eval(propName, instanceEnv);*/
-
-
-
-
-
-                 /*   const elementsArray = this.eval(propName, instanceEnv);
-
-                    instanceEnv.define(propName[1], elementsArray); */
-                  
-
-
-
-
-
-                    //  return instanceEnv.define(propName[1], elementsArray);
                      return;  
                 }
 
@@ -161,18 +141,6 @@ class Eva {
                else {
                     ElementsArray[idx] = this.eval(value, env);
                } 
-                
-               
-
-
-
-
-
-               /* var newArray = elementsArray;
-
-                newArray[idx] = value;
-
-                env.define(ref[0], newArray); */
 
                return;
                 
@@ -350,53 +318,6 @@ if(exp[0] === '/=') {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Array/List decelaration:
 
-    
-    /*    if(exp[0] === 'list') {
-            const [_tag, name, elements] = exp;
-
-            var EleStr = `"(`;
-
-            for(let i = 0; i < elements.length; i++) {
-
-                var ele;
-
-                if(this.isStr(elements[i])) {
-                    ele = eval(elements[i], env);
-
-                    ele = "'".concat(ele, "'");
-                }
-
-                else {
-                    var ele = eval(elements[i],env);
-                }
-
-                if(i === 0) {
-                    EleStr = EleStr + ele;
-                }
-
-                else {
-                    EleStr = EleStr + " || " + ele;
-                }
-            }
-
-            EleStr = EleStr + `)"`;
-
-            return env.define(name, this.eval(EleStr, env)); 
-        }  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         if(exp[0] === 'list') {
             const [_tag, name, elements] = exp;
             
@@ -449,34 +370,6 @@ if(exp[0] === '/=') {
             return this.eval(EleStr, env); 
         }
 
-
-  /*      if(exp[0] === 'ALL') {
-            var name = exp[1];
-
-            var elementsArray = env.lookup(name);
-
-            var evalElements = [0]; 
-
-            for(let i = 0; i < elementsArray.length; i++) {
-
-                var check = elementsArray[i];
-
-                evalElements[i] = this.eval(check, env);
-
-
-                if(this.isStr(check)) {
-                    check = check.slice(1,-1);
-                    check = "'".concat(check, "'");
-                    evalElements[i] = check;
-                }
-            }          
-
-            var strelements = evalElements.toString();
-
-            return strelements;
-        }  */
-
-
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
 // Accessing an element of an array/list: (arr -> 3) --- accesing element at index 3 of arr.
 
@@ -487,26 +380,6 @@ if(exp[0] === '/=') {
             const id = this.eval(exp[2], env);
 
             return this.eval(ListArr[id], env);
-
-
-
-
-
-           /* const subexp = exp[0];
-
-            if(Array.isArray(exp[0])) {
-               
-               var elementsArray = env.lookup(this.eval(exp[0], env));
-            }
-
-            else {
-                
-                var elementsArray = env.lookup(exp[0]);
-            }
-
-            var idx = this.eval(exp[2], env);
-
-            return this.eval(elementsArray[idx], env); */
         }
 
 
@@ -661,13 +534,36 @@ if(exp[0] === '/=') {
 
        if(Array.isArray(exp)) {
 
-                
-            const fn = this.eval(exp[0], env);
+            let fn = "Random";
 
-            /* ->The arguments of the function are evaluated. Hence suppose in case of '+' function
-                 defined in global environment, the opearands are that it receives are already evaluated
-                 and hence do not need to be evaluated again. */
-            const args = exp.slice(1).map(arg => this.eval(arg, env));
+            let args = "Random";
+
+            const opArray = ['+' , '-' , '/' , '*' , '%' , '>' , '<' , '>=' , '<=' , '==']
+
+            if(opArray.includes(exp[1])) {
+
+                fn = this.eval(exp[1], env);
+
+                let khd = exp.splice(1,1);
+
+                args = exp.map(arg => this.eval(arg, env));
+
+                exp[2] = exp[1];
+
+                exp[1] = khd[0];
+
+            } 
+
+            else {
+
+                fn = this.eval(exp[0], env);
+
+                /* ->The arguments of the function are evaluated. Hence suppose in case of '+' function
+                     defined in global environment, the opearands are that it receives are already evaluated
+                     and hence do not need to be evaluated again. */
+                args = exp.slice(1).map(arg => this.eval(arg, env));
+            }
+
 
             // 1. Native function: Here implemented directly in the underline language i.e. Javascript
 

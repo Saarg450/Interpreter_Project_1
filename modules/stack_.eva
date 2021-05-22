@@ -20,7 +20,7 @@
         )
 
         (def pop (this)
-                (if (< (prop this top) 2)
+                (if ((prop this top) < 2)
                     "Empty Stack"
                     (begin
                         (var val ((prop this stt) -> (prop this top)))
@@ -31,7 +31,7 @@
         )
 
         (def peek (this)
-            (if (< (prop this top) 2)
+            (if ((prop this top) < 2)
                 "Empty Stack"
                 ((prop this stt) -> (prop this top))
             ) 

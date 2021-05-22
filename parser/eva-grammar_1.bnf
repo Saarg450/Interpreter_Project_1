@@ -23,13 +23,13 @@
 
 %%
 
-\s+                                   /* skip whitespace                          */
+\s+               /* skip whitespace */
 
-\"[^\"]*\"           return 'STRING'
+\"[^\"]*\"         return 'STRING'
 
-[-]?[0-9]+([.][0-9]+)?        return 'NUMBER'
+\d+               return 'NUMBER'
 
-[\w\-+*=<>/]+                         return 'SYMBOL'
+[\w\-+*=<>/]+     return 'SYMBOL'
 
 /lex
 
